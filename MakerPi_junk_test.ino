@@ -2,9 +2,9 @@
  *  Copyright(C) by Yukiya Ishioka
  */
 
-#define S1NPIN          0
-#define S2NPIN          1
-#define S3NPIN          2
+#define SIN1PIN         0
+#define SIN2PIN         1
+#define SIN3PIN         2
 #define CLKPIN          3
 #define LATPIN          4
 
@@ -126,13 +126,13 @@ void  usec_delay( int usec )
 
 void  dev_led_clr_out( void )
 {
-    int  tmpcol;
+    int  wd;
 
-    for( tmpcol=0 ; tmpcol<16 ; tmpcol++ ) {
-        digitalWrite( S1NPIN, adr_tbl[0][tmpcol] );
+    for( wd=0 ; wd<DEF_LED_WIDTH ; wd++ ) {
+        digitalWrite( SIN1PIN, adr_tbl[0][wd] );
 
-        digitalWrite( S2NPIN, 0 );
-        digitalWrite( S3NPIN, 0 );
+        digitalWrite( SIN2PIN, 0 );
+        digitalWrite( SIN3PIN, 0 );
 
         usec_delay( 1 );
         digitalWrite( CLKPIN, 1 );
@@ -148,16 +148,16 @@ void  dev_led_clr_out( void )
 
 void setup( void )
 {
-  pinMode( S1NPIN,  OUTPUT );
-  pinMode( S2NPIN,  OUTPUT );
-  pinMode( S3NPIN,  OUTPUT );
+  pinMode( SIN1PIN,  OUTPUT );
+  pinMode( SIN2PIN,  OUTPUT );
+  pinMode( SIN3PIN,  OUTPUT );
   pinMode( CLKPIN,  OUTPUT );
   pinMode( LATPIN,  OUTPUT );
   pinMode( BTNPIN,  INPUT_PULLUP );
 
-  digitalWrite( S1NPIN, LOW );
-  digitalWrite( S2NPIN, LOW );
-  digitalWrite( S3NPIN, LOW );
+  digitalWrite( SIN1PIN, LOW );
+  digitalWrite( SIN2PIN, LOW );
+  digitalWrite( SIN3PIN, LOW );
   digitalWrite( CLKPIN, LOW );
   digitalWrite( LATPIN, HIGH );
 
@@ -173,7 +173,6 @@ void setup( void )
 void loop( void )
 {
   int  hi, wd;
-  int  adr;
   int  pos;
   int  btn_stat;
 
@@ -196,24 +195,24 @@ void loop( void )
   pat_pos3 = DEF_LED_WIDTH * 3 - disp_pos;
 
   for( hi=0 ; hi<DEF_LED_HIGHT ; hi++ ) {
-    for( wd=0, adr=0 ; wd<DEF_LED_WIDTH ; wd++, adr++ ) {
+    for( wd=0 ; wd<DEF_LED_WIDTH ; wd++ ) {
 
-      digitalWrite( S1NPIN, adr_tbl[hi][adr] );
+      digitalWrite( SIN1PIN, adr_tbl[hi][wd] );
 
-      /* for S2N */
+      /* for SIN2 */
       pos = pat_pos2 - wd;
       if( pos >= 0 && pos < DEF_LED_WIDTH ) {
-        digitalWrite( S2NPIN, (uint8_t)(*pattern_pnt)[hi][pos] );
+        digitalWrite( SIN2PIN, (uint8_t)(*pattern_pnt)[hi][pos] );
       } else {
-        digitalWrite( S2NPIN, 0 );
+        digitalWrite( SIN2PIN, 0 );
       }
 
-      /* for S3N */
+      /* for SIN3 */
       pos = pat_pos3 - wd;
       if( pos >= 0 && pos < DEF_LED_WIDTH ) {
-        digitalWrite( S3NPIN, (uint8_t)(*pattern_pnt)[hi][pos] );
+        digitalWrite( SIN3PIN, (uint8_t)(*pattern_pnt)[hi][pos] );
       } else {
-        digitalWrite( S3NPIN, 0 );
+        digitalWrite( SIN3PIN, 0 );
       }
 
       usec_delay( 1 );
@@ -234,10 +233,10 @@ void loop( void )
     usec_delay( 1 );
     digitalWrite( LATPIN, 1 );
     usec_delay( DEF_BRIGHT_TIME );
+  }
 
-    if( btn_flag != 0 && btn_stat == HIGH ) {
-      btn_flag = 0;
-    }
+  if( btn_flag != 0 && btn_stat == HIGH ) {
+    btn_flag = 0;
   }
 
   if( --disp_slide <= 0 ) {
@@ -248,6 +247,5 @@ void loop( void )
   }
 
   dev_led_clr_out();
-  usec_delay( DEF_BRIGHT_TIME );
 }
 
