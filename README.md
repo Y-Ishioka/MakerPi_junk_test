@@ -1,6 +1,6 @@
 ◆概要
 
-秋月ジャンクマトリクスLEDを Arduino UNO で動作確認するプログラム
+秋月のドット抜け御免マトリクスLEDモジュールを MAKER PI RP2040 で動作確認するプログラム
 
 - 起動後に１６ｘ１６ドットの塗りつぶしパターンがモジュール右側から左側へ移動を繰り返す
 
@@ -14,23 +14,17 @@
 
 マトリクスLEDモジュールは１セットでの使用を想定
 
-なお、動作確認は Cytron社の Maker UNO を使用
+動作確認は Cytron社の MAKER PI RP2040 を使用
 
-https://akizukidenshi.com/catalog/g/g116285/
+https://akizukidenshi.com/catalog/g/g116939/
 
-https://www.cytron.io/p-maker-uno-simplifying-arduino-for-education?search=MAKER-UNO&description=1
+https://www.cytron.io/p-maker-pi-rp2040-simplifying-robotics-with-raspberry-pi-rp2040
 
 ◆参考資料
 
 https://akizukidenshi.com/img/contents/kairo/%E3%83%87%E3%83%BC%E3%82%BF/%E8%A1%A8%E7%A4%BA%E8%A3%85%E7%BD%AE/LED%E9%9B%BB%E5%85%89%E6%8E%B2%E7%A4%BA.pdf
 
 ◆参考情報１
-
-Maker UNOの回路図
-
-https://cdn.cytron.io/makeruno/MAKER-UNO.pdf?_gl=1*1eylfr3*_gcl_au*MTk1OTE4MzI1Ny4xNzQwMzc2Mjg5
-
-◆参考情報２
 
 https://x.com/YI_Studio/status/1842111760213663799
 
@@ -41,19 +35,19 @@ https://x.com/YI_Studio/status/1893488568930025907
 
 マトリクスLEDモジュールと接続するピンは以下の通り。
 
-#define S1NPIN          3
+#define SIN1PIN         0
 
-#define S2NPIN          4
+#define SIN2PIN         1
 
-#define S3NPIN          5
+#define SIN3PIN         2
 
-#define CLKPIN          6
+#define CLKPIN          3
 
-#define LATPIN          7
+#define LATPIN          4
 
 また、表示内容の変更に使用するボタンのピンは以下の通り。
 
-#define BTNPIN          2
+#define BTNPIN          20
 
 
 ◆免責
